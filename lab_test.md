@@ -133,7 +133,7 @@ sudo containerlab inspect -t lab1.clab.yaml
 
 После развёртывания все контейнеры перешли в состояние `running`, а устройства MikroTik — в состояние `healthy`.
 
-**Нужно вставить скриншот вывода `containerlab inspect` сюда.**
+![Вывод состояния контейнеров].(1.jpg)
 
 ## Особенность используемого образа RouterOS
 
