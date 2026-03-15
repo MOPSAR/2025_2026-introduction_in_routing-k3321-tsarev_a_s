@@ -123,7 +123,7 @@ topology:
     - endpoints: ["R01.SPB:eth3", "PC1:eth1"]
 ````
 
-## Развёртывание лаборатории
+## Развёртывание сети
 
 Для запуска лабораторной работы использовались следующие команды:
 
@@ -135,33 +135,11 @@ sudo containerlab inspect -t lab3.clab.yaml
 
 После развертывания все linux-контейнеры перешли в состояние `running`, а маршрутизаторы MikroTik RouterOS — в состояние `running (healthy)`.
 
-Сюда рекомендуется вставить скриншот вывода команды:
+![Описание](images/1.jpg)
 
 ```bash
 sudo containerlab inspect -t lab3.clab.yaml
 ```
-
----
-
-## Особенность образа RouterOS в ContainerLab
-
-В процессе выполнения лабораторной работы была подтверждена особенность образа `vrnetlab/mikrotik_routeros:6.47.9`.
-
-Несмотря на то, что в файле `.yaml` использовались интерфейсы `eth1`, `eth2`, `eth3` и т.д., внутри RouterOS реальные интерфейсы сдвигались на один номер из-за использования служебного management-интерфейса.
-
-Например, для маршрутизатора `R01.NY`:
-
-* `eth1` из ContainerLab соответствовал `ether2` в RouterOS;
-* `eth2` соответствовал `ether3`;
-* `eth3` соответствовал `ether4`.
-
-Таким образом, при настройке всех маршрутизаторов требовалось предварительно проверять реальные интерфейсы командой:
-
-```rsc
-/interface ethernet print
-```
-
----
 
 ## Принятая схема адресации
 
@@ -381,7 +359,7 @@ ping 10.0.63.2
 
 Во всех случаях пакеты передавались успешно, потерь не наблюдалось.
 
-Сюда рекомендуется вставить скриншоты результатов ping между соседними маршрутизаторами.
+![Описание](images/2.jpg)
 
 ---
 
@@ -471,13 +449,7 @@ add network=10.0.65.0/30 area=backbone
 /routing ospf neighbor print
 /ip route print
 ```
-
-Сюда рекомендуется вставить скриншоты:
-
-* `/routing ospf neighbor print`
-* `/ip route print`
-
----
+![Описание](images/3.jpg)
 
 ## Настройка MPLS и LDP
 
@@ -518,12 +490,7 @@ add interface=ether4
 * `R01.MSK` — с `R01.SPB` и `R01.LBN`;
 * `R01.LBN` — с `R01.NY`, `R01.HKI` и `R01.MSK`.
 
-Сюда рекомендуется вставить скриншоты:
-
-* `/mpls ldp neighbor print`
-* `/mpls forwarding-table print`
-
----
+![Описание](images/4.jpg)
 
 ## Настройка EoMPLS (VPLS)
 
@@ -557,13 +524,7 @@ add bridge=br-eompls interface=vpls-to-ny
 /interface vpls print detail
 /interface bridge port print
 ```
-
-Сюда рекомендуется вставить скриншоты:
-
-* `/interface vpls print detail`
-* `/interface bridge port print`
-
----
+![Описание](images/5.jpg)
 
 ## Настройка IP-адресов на конечных хостах
 
@@ -599,19 +560,8 @@ ping 192.168.100.20
 
 Результат:
 
-```text
-PING 192.168.100.20 (192.168.100.20): 56 data bytes
-64 bytes from 192.168.100.20: seq=0 ttl=64 time=10.211 ms
-64 bytes from 192.168.100.20: seq=1 ttl=64 time=13.397 ms
-64 bytes from 192.168.100.20: seq=2 ttl=64 time=3.788 ms
-64 bytes from 192.168.100.20: seq=3 ttl=64 time=16.704 ms
-64 bytes from 192.168.100.20: seq=4 ttl=64 time=15.544 ms
-64 bytes from 192.168.100.20: seq=5 ttl=64 time=15.616 ms
+![Описание](images/6.jpg)
 
---- 192.168.100.20 ping statistics ---
-6 packets transmitted, 6 packets received, 0% packet loss
-round-trip min/avg/max = 3.788/12.543/16.704 ms
-```
 
 ### Проверка с `PC1`
 
@@ -621,18 +571,7 @@ ping 192.168.100.10
 
 Результат:
 
-```text
-PING 192.168.100.10 (192.168.100.10): 56 data bytes
-64 bytes from 192.168.100.10: seq=0 ttl=64 time=4.443 ms
-64 bytes from 192.168.100.10: seq=1 ttl=64 time=3.360 ms
-64 bytes from 192.168.100.10: seq=2 ttl=64 time=9.221 ms
-64 bytes from 192.168.100.10: seq=3 ttl=64 time=14.627 ms
-64 bytes from 192.168.100.10: seq=4 ttl=64 time=15.585 ms
-
---- 192.168.100.10 ping statistics ---
-5 packets transmitted, 5 packets received, 0% packet loss
-round-trip min/avg/max = 3.360/9.447/15.585 ms
-```
+![Описание](images/7.jpg)
 
 Успешные двусторонние ping подтверждают, что контейнеры `SGI Prism` и `PC1` были объединены в единый Ethernet-сегмент поверх MPLS-сети.
 
