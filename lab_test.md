@@ -178,8 +178,8 @@ sudo containerlab inspect -t lab1.clab.yaml
 На R01 были созданы два VLAN-интерфейса на `ether2`, назначены IP-адреса шлюзов, созданы DHCP-пулы и DHCP-серверы.
 
 ```rsc
-/system identity set name=R01.TEST
-/user set admin password=admin
+/system identity set name=R01
+/user set admin password=123
 
 /interface vlan
 add name=vlan10 interface=ether2 vlan-id=10
@@ -213,15 +213,15 @@ add address=192.168.20.0/24 gateway=192.168.20.1 dns-server=8.8.8.8
 /ip dhcp-server lease print
 ```
 
-**Нужно вставить скриншот вывода этих команд сюда.**
+![Вывод состояния контейнеров](2.jpg)
 
 ## Конфигурация SW01
 
 На SW01 был создан bridge `br1`, настроены trunk-порты и таблица VLAN для VLAN 10 и VLAN 20.
 
 ```rsc
-/system identity set name=SW01.L3.01.TEST
-/user set admin password=admin
+/system identity set name=SW01
+/user set admin password=123
 
 /interface bridge
 add name=br1 vlan-filtering=no
@@ -247,15 +247,15 @@ set br1 vlan-filtering=yes
 /interface bridge vlan print
 ```
 
-**Нужно вставить скриншот вывода команд проверки SW01 сюда.**
+![Вывод состояния контейнеров](3.jpg)
 
 ## Конфигурация SW02A
 
 На SW02A uplink к SW01 был настроен как trunk-порт, а порт к PC1 как access-порт VLAN 10.
 
 ```rsc
-/system identity set name=SW02.L3.01.TEST
-/user set admin password=admin
+/system identity set name=SW02A
+/user set admin password=123
 
 /interface bridge
 add name=br1 vlan-filtering=no
@@ -279,15 +279,15 @@ set br1 vlan-filtering=yes
 /interface bridge vlan print
 ```
 
-**Нужно вставить скриншот вывода команд проверки SW02A сюда.**
+![Вывод состояния контейнеров](4.jpg)
 
 ## Конфигурация SW02B
 
 На SW02B uplink к SW01 был настроен как trunk-порт, а порт к PC2 как access-порт VLAN 20.
 
 ```rsc
-/system identity set name=SW02.L3.02.TEST
-/user set admin password=admin
+/system identity set name=SW02B
+/user set admin password=123
 
 /interface bridge
 add name=br1 vlan-filtering=no
@@ -311,7 +311,7 @@ set br1 vlan-filtering=yes
 /interface bridge vlan print
 ```
 
-**Нужно вставить скриншот вывода команд проверки SW02B сюда.**
+![Вывод состояния контейнеров](5.jpg)
 
 ## Проверка получения IP-адреса на PC1
 
@@ -332,37 +332,15 @@ PC1 получил IP-адрес из сети VLAN 10:
 
 ### Вывод DHCP-клиента на PC1
 
-```text
-udhcpc: started, v1.37.0
-udhcpc: broadcasting discover
-udhcpc: broadcasting select for 192.168.10.199, server 192.168.10.1
-udhcpc: lease of 192.168.10.199 obtained from 192.168.10.1, lease time 600
-mv: can't rename '/etc/resolv.conf.36': Resource busy
-```
+![Вывод состояния контейнеров](6.jpg)
 
 ### Проверка IP-адреса PC1
 
-```text
-eth1@if230: <BROADCAST,MULTICAST,UP,LOWER_UP,M-DOWN> mtu 9500 qdisc noqueue state UP
-    link/ether aa:c1:ab:8a:b2:2a brd ff:ff:ff:ff:ff:ff
-    inet 192.168.10.199/24 scope global eth1
-       valid_lft forever preferred_lft forever
-```
+![Вывод состояния контейнеров](7.jpg)
 
 ### Проверка связности PC1 с шлюзом
 
-```text
-PING 192.168.10.1 (192.168.10.1): 56 data bytes
-64 bytes from 192.168.10.1: seq=0 ttl=64 time=2.890 ms
-64 bytes from 192.168.10.1: seq=1 ttl=64 time=10.383 ms
-64 bytes from 192.168.10.1: seq=2 ttl=64 time=9.476 ms
-64 bytes from 192.168.10.1: seq=3 ttl=64 time=9.608 ms
-
---- 192.168.10.1 ping statistics ---
-4 packets transmitted, 4 packets received, 0% packet loss
-```
-
-**Нужно вставить скриншот проверки DHCP и ping для PC1 сюда.**
+![Вывод состояния контейнеров](8.jpg)
 
 ## Проверка получения IP-адреса на PC2
 
@@ -383,37 +361,16 @@ PC2 получил IP-адрес из сети VLAN 20:
 
 ### Вывод DHCP-клиента на PC2
 
-```text
-udhcpc: started, v1.37.0
-udhcpc: broadcasting discover
-udhcpc: broadcasting select for 192.168.20.199, server 192.168.20.1
-udhcpc: lease of 192.168.20.199 obtained from 192.168.20.1, lease time 600
-mv: can't rename '/etc/resolv.conf.16': Resource busy
-```
+![Вывод состояния контейнеров](9.jpg)
 
 ### Проверка IP-адреса PC2
 
-```text
-eth1@if224: <BROADCAST,MULTICAST,UP,LOWER_UP,M-DOWN> mtu 9500 qdisc noqueue state UP
-    link/ether aa:c1:ab:29:b9:9a brd ff:ff:ff:ff:ff:ff
-    inet 192.168.20.199/24 scope global eth1
-       valid_lft forever preferred_lft forever
-```
+![Вывод состояния контейнеров](10.jpg)
 
 ### Проверка связности PC2 с шлюзом
 
-```text
-PING 192.168.20.1 (192.168.20.1): 56 data bytes
-64 bytes from 192.168.20.1: seq=0 ttl=64 time=2.547 ms
-64 bytes from 192.168.20.1: seq=1 ttl=64 time=4.214 ms
-64 bytes from 192.168.20.1: seq=2 ttl=64 time=8.410 ms
-64 bytes from 192.168.20.1: seq=3 ttl=64 time=10.745 ms
+![Вывод состояния контейнеров](11.jpg)
 
---- 192.168.20.1 ping statistics ---
-4 packets transmitted, 4 packets received, 0% packet loss
-```
-
-**Нужно вставить скриншот проверки DHCP и ping для PC2 сюда.**
 
 ## Результаты лабораторной работы
 
