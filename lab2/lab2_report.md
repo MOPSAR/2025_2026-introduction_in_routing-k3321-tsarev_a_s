@@ -46,12 +46,12 @@ Date of finished:
 
 ### Соединения между устройствами
 
-- `R01.MSK:eth1 <-> R01.BRL:eth1`
-- `R01.BRL:eth2 <-> R01.FRT:eth1`
-- `R01.MSK:eth2 <-> R01.FRT:eth2`
-- `R01.MSK:eth3 <-> PC1:eth1`
-- `R01.FRT:eth3 <-> PC2:eth1`
-- `R01.BRL:eth3 <-> PC3:eth1`
+- `R01.MSK:eth2 <-> R01.BRL:eth2`
+- `R01.BRL:eth3 <-> R01.FRT:eth2`
+- `R01.MSK:eth3 <-> R01.FRT:eth3`
+- `R01.MSK:eth4 <-> PC1:eth1`
+- `R01.FRT:eth4 <-> PC2:eth1`
+- `R01.BRL:eth4 <-> PC3:eth1`
 
 ### IP-адреса для подключения по SSH
 
