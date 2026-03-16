@@ -144,7 +144,7 @@ sudo containerlab inspect -t lab4.clab.yaml
 
 Следует учитывать особенность образа `vrnetlab/mikrotik_routeros:6.47.9`: интерфейс `ether1` внутри RouterOS используется под management-подключение. Поэтому интерфейсы, указанные в `lab4.clab.yaml` как `eth1`, `eth2`, `eth3`, внутри MikroTik отображаются как `ether2`, `ether3`, `ether4`.
 
-![Вывод состояния контейнеров](images/1.jpg)
+![Вывод состояния контейнеров](images/site.jpg)
 
 ## План адресации
 
@@ -240,7 +240,7 @@ add instance=default routing-mark=DEVOPS redistribute-connected=yes
 /routing bgp vpn print
 ```
 
-![Проверка конфигурации R01.NY](images/2.jpg)
+![Проверка конфигурации R01.NY](images/1.jpg)
 
 ## Конфигурация R01.LND
 
@@ -300,7 +300,7 @@ add name=to-R01.SVL remote-address=10.255.0.6 remote-as=65000 update-source=lo0 
 /routing bgp peer print status
 ```
 
-![Проверка конфигурации R01.LND](images/3.jpg)
+![Проверка конфигурации R01.LND](images/2.jpg)
 
 ## Конфигурация R01.HKI
 
@@ -360,7 +360,7 @@ add name=to-R01.SVL remote-address=10.255.0.6 remote-as=65000 update-source=lo0 
 /routing bgp peer print status
 ```
 
-![Проверка конфигурации R01.HKI](images/4.jpg)
+![Проверка конфигурации R01.HKI](images/3.jpg)
 
 ## Конфигурация R01.SPB
 
@@ -418,7 +418,7 @@ add instance=default routing-mark=DEVOPS redistribute-connected=yes
 /routing bgp vpn print
 ```
 
-![Проверка конфигурации R01.SPB](images/5.jpg)
+![Проверка конфигурации R01.SPB](images/4.jpg)
 
 ## Конфигурация R01.LBN
 
@@ -475,7 +475,7 @@ add name=to-R01.HKI remote-address=10.255.0.3 remote-as=65000 update-source=lo0 
 /routing bgp peer print status
 ```
 
-![Проверка конфигурации R01.LBN](images/6.jpg)
+![Проверка конфигурации R01.LBN](images/5.jpg)
 
 ## Конфигурация R01.SVL
 
@@ -533,7 +533,8 @@ add instance=default routing-mark=DEVOPS redistribute-connected=yes
 /routing bgp vpn print
 ```
 
-![Проверка конфигурации R01.SVL](images/7.jpg)
+![Проверка конфигурации R01.SVL](images/6.1.jpg)
+![Проверка конфигурации R01.SVL](images/6.2.jpg)
 
 ## Проверка получения IP-адреса на PC
 
@@ -595,7 +596,7 @@ ping -c 4 192.168.30.10
 * узла `PC2` с адресом `192.168.10.10`;
 * узла `PC3` с адресом `192.168.30.10`.
 
-![Проверка связности с PC1](images/8.jpg)
+![Проверка связности с PC1](images/7.jpg)
 
 ### Проверка с PC2
 
@@ -611,7 +612,7 @@ ping -c 4 192.168.30.10
 * узла `PC1` с адресом `192.168.20.10`;
 * узла `PC3` с адресом `192.168.30.10`.
 
-![Проверка связности с PC2](images/9.jpg)
+![Проверка связности с PC2](images/8.jpg)
 
 ### Проверка с PC3
 
@@ -627,7 +628,7 @@ ping -c 4 192.168.20.10
 * узла `PC2` с адресом `192.168.10.10`;
 * узла `PC1` с адресом `192.168.20.10`.
 
-![Проверка связности с PC3](images/10.jpg)
+![Проверка связности с PC3](images/9.jpg)
 
 ## Результаты первой части лабораторной работы
 
