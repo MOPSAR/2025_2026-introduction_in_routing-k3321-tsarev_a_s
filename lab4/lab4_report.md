@@ -39,15 +39,15 @@
 
 ### Соединения между устройствами
 
-* `PC2:eth1 <-> R01.NY:eth1`
-* `R01.NY:eth2 <-> R01.LND:eth1`
-* `R01.LND:eth2 <-> R01.HKI:eth1`
-* `R01.HKI:eth2 <-> R01.SPB:eth1`
-* `R01.LND:eth3 <-> R01.LBN:eth1`
-* `R01.HKI:eth3 <-> R01.LBN:eth2`
-* `R01.LBN:eth3 <-> R01.SVL:eth1`
-* `R01.SPB:eth2 <-> PC1:eth1`
-* `R01.SVL:eth2 <-> PC3:eth1`
+* `PC2:eth1 <-> R01.NY:eth2`
+* `R01.NY:eth3 <-> R01.LND:eth2`
+* `R01.LND:eth3 <-> R01.HKI:eth2`
+* `R01.HKI:eth3 <-> R01.SPB:eth2`
+* `R01.LND:eth4 <-> R01.LBN:eth2`
+* `R01.HKI:eth4 <-> R01.LBN:eth3`
+* `R01.LBN:eth4 <-> R01.SVL:eth2`
+* `R01.SPB:eth3 <-> PC1:eth1`
+* `R01.SVL:eth3 <-> PC3:eth1`
 
 ### IP-адреса для подключения по SSH
 
